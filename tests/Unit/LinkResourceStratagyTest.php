@@ -51,11 +51,13 @@ class LinkResourceStratagyTest extends TestCase
     {
         $linkResource = LinkResource::factory(1)->create()->first();
 
+        $newTitle = "New Title";
         $newLink = "https://example.org";
 
         $linkResourceStratagy = new LinkResourceStratagy();
-        $linkResourceDto = $linkResourceStratagy->retrieve(new LinkResourceDTO(
+        $linkResourceDto = $linkResourceStratagy->update(new LinkResourceDTO(
             id: $linkResource->id,
+            title: $newTitle,
             link: $newLink,
         ));
 
@@ -70,7 +72,7 @@ class LinkResourceStratagyTest extends TestCase
         $linkResource = LinkResource::factory(1)->create()->first();
 
         $linkResourceStratagy = new LinkResourceStratagy();
-        $linkResourceStratagy->retrieve(new LinkResourceDTO(
+        $linkResourceStratagy->delete(new LinkResourceDTO(
             id: $linkResource->id,
         ));
 
