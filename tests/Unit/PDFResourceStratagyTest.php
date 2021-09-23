@@ -5,16 +5,20 @@ namespace Tests\Unit;
 use App\DTOs\Resources\PDFResourceDTO;
 use App\Models\PDFResource;
 use App\Stratagies\Resources\PdfResourceStratagy;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use SplFileObject;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertFileExists;
 use function PHPUnit\Framework\assertGreaterThan;
 use function PHPUnit\Framework\assertTrue;
 
 class PDFResourceStratagyTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_create()
     {
         $title = 'Test Title';
@@ -73,6 +77,6 @@ class PDFResourceStratagyTest extends TestCase
             id: $pdfResource->id
         ));
 
-        assertTrue($pdfResource->exists());
+        assertFalse($pdfResource->exists());
     }
 }

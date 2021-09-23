@@ -5,13 +5,10 @@ namespace App\Stratagies\Resources;
 use App\DTOs\Resources\PDFResourceDTO;
 use App\DTOs\Resources\ResourceDTOInterface;
 use App\Models\PDFResource;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use InvalidArgumentException;
 
 class PdfResourceStratagy implements ResourceStratagyInterface
 {
-    use RefreshDatabase;
-
     public function create(ResourceDTOInterface $pdfResourceDto): PDFResourceDTO
     {
         $pdfResource = PDFResource::create([
