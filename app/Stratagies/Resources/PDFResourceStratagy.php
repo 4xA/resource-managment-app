@@ -19,18 +19,18 @@ class PDFResourceStratagy implements ResourceStratagyInterface
             ->usingFileName($pdfResourceDto->fileName)
             ->toMediaCollection(config('media_collections.pdf'));
 
-        return new PDFResourceDTO(
-            id: $pdfResource->id,
-            title: $pdfResource->title,
-            path: $pdfResource->getFirstMediaUrl(config('media_collections.pdf')),
-        );
+        return PDFResourceDTO::fromEloquent($pdfResource);
     }
 
     public function retrieve(ResourceDTOInterface $pdfResourceDto): PDFResourceDTO
     {
-        return PDFResourceDTO::fromEloquent(
-            PDFResource::find($pdfResourceDto->id)
-        );
+        $pdfResource = PDFResource::find($pdfResourceDto->id);
+
+        if (!isset($pdfResource)) {
+            throw new InvalidArgumentException('Model does not exist');
+        }
+
+        return PDFResourceDTO::fromEloquent($pdfResource);
     }
 
     public function update(ResourceDTOInterface $pdfResourceDto): PDFResourceDTO

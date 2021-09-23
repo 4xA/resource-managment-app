@@ -52,10 +52,15 @@ class HTMLResourceStratagyTest extends TestCase
         $htmlResource = HTMLResource::factory(1)->create()->first();
 
         $newTitle = 'New Title';
+        $newDescription = 'New description';
+        $newSnippet = '<main></main>';
 
         $htmlResourceStratagy = new HTMLResourceStratagy();
         $htmlResourceDto = $htmlResourceStratagy->update(new HTMLResourceDTO(
-            title: $newTitle
+            id: $htmlResource->id,
+            title: $newTitle,
+            description: $newDescription,
+            snippet: $newSnippet,
         ));
 
         $htmlResource = HTMLResource::find($htmlResourceDto->id);

@@ -16,7 +16,7 @@ class CreateHTMLResourcesTable extends Migration
         Schema::create('html_resources', function (Blueprint $table) {
             $table->id();
             $table->text('title');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->longText('snippet');
             $table->timestamps();
             $table->softDeletes();
