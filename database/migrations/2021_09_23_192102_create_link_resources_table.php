@@ -17,7 +17,7 @@ class CreateLinkResourcesTable extends Migration
             $table->id();
             $table->text('title');
             $table->text('link');
-            $table->boolean('is_open_new_tab');
+            $table->boolean('is_open_new_tab')->default(false)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
