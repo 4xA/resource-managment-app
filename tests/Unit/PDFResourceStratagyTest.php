@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use App\DTOs\Resources\PDFResourceDTO;
 use App\Models\PDFResource;
-use App\Stratagies\Resources\PdfResourceStratagy;
+use App\Stratagies\Resources\PDFResourceStratagy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use SplFileObject;
 use Tests\TestCase;
@@ -26,7 +26,7 @@ class PDFResourceStratagyTest extends TestCase
 
         assertGreaterThan(0, $file->getSize());
 
-        $pdfResourceStratagy = new PdfResourceStratagy();
+        $pdfResourceStratagy = new PDFResourceStratagy();
         $pdfResourceDto = $pdfResourceStratagy->create(new PDFResourceDTO(
             title: $title,
             fileName: $file->getFilename(),
@@ -43,7 +43,7 @@ class PDFResourceStratagyTest extends TestCase
     {
         $pdfResource = PDFResource::factory(1)->create()->first();
 
-        $pdfResourceStratagy = new PdfResourceStratagy();
+        $pdfResourceStratagy = new PDFResourceStratagy();
         $pdfResourceDto = $pdfResourceStratagy->retrieve(new PDFResourceDTO(
             id: $pdfResource->id
         ));
@@ -57,7 +57,7 @@ class PDFResourceStratagyTest extends TestCase
 
         $newTitle = 'New Title';
 
-        $pdfResourceStratagy = new PdfResourceStratagy();
+        $pdfResourceStratagy = new PDFResourceStratagy();
         $pdfResourceDto = $pdfResourceStratagy->update(new PDFResourceDTO(
             id: $pdfResource->id,
             title: $newTitle
@@ -72,7 +72,7 @@ class PDFResourceStratagyTest extends TestCase
     {
         $pdfResource = PDFResource::factory(1)->create()->first();
 
-        $pdfResourceStratagy = new PdfResourceStratagy();
+        $pdfResourceStratagy = new PDFResourceStratagy();
         $pdfResourceStratagy->delete(new PDFResourceDTO(
             id: $pdfResource->id
         ));

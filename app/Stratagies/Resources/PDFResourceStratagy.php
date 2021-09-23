@@ -7,7 +7,7 @@ use App\DTOs\Resources\ResourceDTOInterface;
 use App\Models\PDFResource;
 use InvalidArgumentException;
 
-class PdfResourceStratagy implements ResourceStratagyInterface
+class PDFResourceStratagy implements ResourceStratagyInterface
 {
     public function create(ResourceDTOInterface $pdfResourceDto): PDFResourceDTO
     {
