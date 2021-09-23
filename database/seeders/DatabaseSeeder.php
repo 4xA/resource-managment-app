@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PDFResourceSeeder::class,
             HTMLResourceSeeder::class,
+            LinkResourceSeeder::class,
         ]);
     }
 }
