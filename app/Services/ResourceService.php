@@ -2,9 +2,14 @@
 
 namespace App\Services;
 
+use App\DTOs\Resources\HTMLResourceDTO;
 use App\DTOs\Resources\LinkResourceDTO;
+use App\DTOs\Resources\PDFResourceDTO;
+use App\Enums\ResourceTypeEnum;
 use App\Models\Resource;
+use App\Stratagies\Resources\HTMLResourceStratagy;
 use App\Stratagies\Resources\LinkResourceStratagy;
+use App\Stratagies\Resources\PDFResourceStratagy;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
@@ -95,17 +100,42 @@ class ResourceService
         $resourceStratagy = null;
         $resourceDto = null;
 
-        // TODO: Move this magic string to enum
-        if ($collection->get('type') === 'link') {
-            $resourceStratagy = new LinkResourceStratagy();
-            $resourceDto = new LinkResourceDTO(
-                id: $collection->get('id'),
-                title: $collection->get('title'),
-                link: $collection->get('link'),
-                isOpenNewTab: $collection->get('is_open_new_tab')
-            );
-        }
+        switch ($collection->get('type')) {
+            case ResourceTypeEnum::LINK:
+                $resourceStratagy = new LinkResourceStratagy();
+                $resourceDto = new LinkResourceDTO(
+                    id: $collection->get('id'),
+                    title: $collection->get('title'),
+                    link: $collection->get('link'),
+                    isOpenNewTab: $collection->get('is_open_new_tab')
+                );
+                break;
+            
+            case ResourceTypeEnum::PDF:
+                $resourceStratagy = new PDFResourceStratagy();
+                $resourceDto = new PDFResourceDTO(
+                    id: $collection->get('id'),
+                    title: $collection->get('title'),
+                    fileName: $collection->get('file')->hashName(),
+                    fileBase64: base64_encode($collection->get('file')->get()),
+                );
+                break;
 
+            case ResourceTypeEnum::HTML:
+                $resourceStratagy = new HTMLResourceStratagy();
+                $resourceDto = new HTMLResourceDTO(
+                    id: $collection->get('id'),
+                    title: $collection->get('title'),
+                    description: $collection->get('description'),
+                    snippet: $collection->get('snippet'),
+                );
+                break;
+            
+            default:
+                throw new InvalidArgumentException('Type is not supported');
+                break;
+        }
+            
         return [$resourceStratagy, $resourceDto];
     }
 }
