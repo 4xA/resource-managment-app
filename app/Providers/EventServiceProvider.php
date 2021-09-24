@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\HTMLResource;
+use App\Models\LinkResource;
+use App\Models\PDFResource;
+use App\Models\ResourceType;
+use App\Observers\PDFResourceObserver;
+use App\Observers\ResourceTypeObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,6 +33,9 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        PDFResource::observe(PDFResourceObserver::class);
+        LinkResource::observe(ResourceTypeObserver::class);
+        PDFResource::observe(ResourceTypeObserver::class);
+        HTMLResource::observe(ResourceTypeObserver::class);
     }
 }

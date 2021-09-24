@@ -7,24 +7,19 @@ use App\Models\PDFResource;
 class PDFResourceObserver
 {
     /**
-     * Handle the PDFResource "deleted" event.
+     * Handle the PDFResource "force deleting" event.
      *
      * @param  \App\Models\PDFResource  $pDFResource
      * @return void
      */
-    public function deleted(PDFResource $pdfResource)
+    public function forceDeleting(PDFResource $pdfResource)
     {
-        $pdfResource->getFirstMedia(config('media_collections.pdf'))->delete();
-    }
+        $media = $pdfResource->getFirstMedia(config('media_collections.pdf'));
 
-    /**
-     * Handle the PDFResource "force deleted" event.
-     *
-     * @param  \App\Models\PDFResource  $pDFResource
-     * @return void
-     */
-    public function forceDeleted(PDFResource $pdfResource)
-    {
-        $pdfResource->getFirstMedia(config('media_collections.pdf'))->delete();
+        if (!isset($media)) {
+            return;
+        }
+
+        $media->delete();
     }
 }
