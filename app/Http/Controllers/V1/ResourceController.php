@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\V1;
 
-use App\DTOs\Resources\LinkResourceDTO;
 use App\Http\Controllers\Controller;
 use App\Services\ResourceService;
-use App\Stratagies\Resources\LinkResourceStratagy;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 
 class ResourceController extends Controller
 {
@@ -59,7 +56,7 @@ class ResourceController extends Controller
      */
     public function show($id)
     {
-        $result = ['status' => '201'];
+        $result = ['status' => '200'];
 
         try {
             $result['data'] = $this->resourceService->retrieve($id);

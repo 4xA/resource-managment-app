@@ -116,7 +116,7 @@ class ResourceService
                 $resourceDto = new PDFResourceDTO(
                     id: $collection->get('id'),
                     title: $collection->get('title'),
-                    fileName: $collection->get('file')->hashName(),
+                    fileName: $collection->get('file')->getClientOriginalName(),
                     fileBase64: base64_encode($collection->get('file')->get()),
                 );
                 break;
