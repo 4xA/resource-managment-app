@@ -7,14 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 
-    <title>{{env('APP_NAME')}}</title>
+    <title>@yield('title', __('Resource Managment App'))</title>
 </head>
 
 <body>
     <div id="app">
-        <app>
-            <example-component></example-component>
-        </app>
+        @yield('content')
     </div>
 
     <script src="{{ mix('js/app.js') }}"></script>
