@@ -14,4 +14,9 @@ class ResourceType extends Model
     {
         return $this->morphOne(Resource::class, 'resourcable');
     }
+
+    public function getResourceIdAttribute()
+    {
+        return $this->resource->id;
+    }
 }

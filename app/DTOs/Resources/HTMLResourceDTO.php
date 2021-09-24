@@ -2,7 +2,7 @@
 
 namespace App\DTOs\Resources;
 
-use App\Models\HTMLResource;
+use App\Models\ResourceType;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class HTMLResourceDTO extends DataTransferObject implements ResourceDTOInterface
@@ -16,7 +16,7 @@ class HTMLResourceDTO extends DataTransferObject implements ResourceDTOInterface
     {
     }
 
-    public static function fromEloquent(HTMLResource $htmlResource): HTMLResourceDTO
+    public static function fromEloquent(ResourceType $htmlResource): HTMLResourceDTO
     {
         $htmlResourceDto = new HTMLResourceDTO(
             id: $htmlResource->resource->id,

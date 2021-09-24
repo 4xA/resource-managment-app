@@ -13,4 +13,15 @@ class LinkResource extends ResourceType
         'link',
         'is_open_new_tab',
     ];
+
+    protected $visible = [
+        'resource_id',
+        'title',
+        'link',
+        'is_open_new_tab',
+    ];
+
+    protected $appends = [
+        'resource_id'
+    ];
 }

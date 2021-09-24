@@ -16,6 +16,28 @@ class PDFResource extends ResourceType implements HasMedia
         'title'
     ];
 
+    protected $visible = [
+        'resource_id',
+        'title',
+        'url'
+    ];
+
+    protected $appends = [
+        'url',
+        'resource_id',
+    ];
+
+    public function getUrlAttribute()
+    {
+        $url = $this->getFirstMediaUrl(config('media_collections.pdf'));
+
+        if (!isset($url)) {
+            return null;
+        }
+
+        return $url;
+    }
+
     public function registerMediaCollections(): void
     {
         $this

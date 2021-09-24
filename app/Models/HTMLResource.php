@@ -15,4 +15,15 @@ class HTMLResource extends ResourceType
         'description',
         'snippet',
     ];
+
+    protected $visible = [
+        'resource_id',
+        'title',
+        'description',
+        'snippet',
+    ];
+
+    protected $appends = [
+        'resource_id'
+    ];
 }

@@ -23,7 +23,19 @@ class ResourceController extends Controller
      */
     public function index()
     {
-        //
+        $result = ['status' => '200'];
+
+        try {
+            // TODO: Paginate response
+            $result['data'] = $this->resourceService->all();
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
     }
 
     /**

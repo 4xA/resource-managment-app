@@ -22,6 +22,20 @@ class ResourceService
         //
     }
 
+    public function all(): array
+    {
+        $resources = [];
+
+        foreach (Resource::with('resourcable')->get() as $resource) {
+            if (!isset($resource->resourcable)) {
+                continue;
+            }
+            array_push($resources, $resource->resourcable->toArray());
+        }
+
+        return $resources;
+    }
+
     public function create(Collection $collection): array
     {
         list($resourceStratagy, $resourceDto) = $this->getStratagyAndDto($collection);
@@ -116,8 +130,8 @@ class ResourceService
                 $resourceDto = new PDFResourceDTO(
                     id: $collection->get('id'),
                     title: $collection->get('title'),
-                    fileName: $collection->get('file')->getClientOriginalName(),
-                    fileBase64: base64_encode($collection->get('file')->get()),
+                    fileName: $collection->get('file') !== null ? $collection->get('file')->getClientOriginalName() : null,
+                    fileBase64: $collection->get('file') !== null ? base64_encode($collection->get('file')->get()): null,
                 );
                 break;
 

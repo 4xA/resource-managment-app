@@ -3,6 +3,7 @@
 namespace App\DTOs\Resources;
 
 use App\Models\PDFResource;
+use App\Models\ResourceType;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class PDFResourceDTO extends DataTransferObject implements ResourceDTOInterface
@@ -17,7 +18,7 @@ class PDFResourceDTO extends DataTransferObject implements ResourceDTOInterface
     {
     }
 
-    public static function fromEloquent(PDFResource $pdfResource): PDFResourceDTO
+    public static function fromEloquent(ResourceType $pdfResource): PDFResourceDTO
     {
         $pdfResourceDto = new PDFResourceDTO(
             id: $pdfResource->resource->id,

@@ -2,7 +2,7 @@
 
 namespace App\DTOs\Resources;
 
-use App\Models\LinkResource;
+use App\Models\ResourceType;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class LinkResourceDTO extends DataTransferObject implements ResourceDTOInterface
@@ -16,7 +16,7 @@ class LinkResourceDTO extends DataTransferObject implements ResourceDTOInterface
     {
     }
 
-    public static function fromEloquent(LinkResource $linkResource): LinkResourceDTO
+    public static function fromEloquent(ResourceType $linkResource): LinkResourceDTO
     {
         $linkResourceDto = new LinkResourceDTO(
             id: $linkResource->resource->id,
