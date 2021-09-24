@@ -20,7 +20,7 @@ class PDFResourceDTO extends DataTransferObject implements ResourceDTOInterface
     public static function fromEloquent(PDFResource $pdfResource): PDFResourceDTO
     {
         $pdfResourceDto = new PDFResourceDTO(
-            id: $pdfResource->id,
+            id: $pdfResource->resource->id,
             title: $pdfResource->title,
             path: $pdfResource->getFirstMediaUrl(config('media_collections.pdf'))
         );

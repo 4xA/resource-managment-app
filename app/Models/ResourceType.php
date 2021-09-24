@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ResourceType extends Model
 {
+    use SoftDeletes;
+
     public function resource(): MorphOne
     {
         return $this->morphOne(Resource::class, 'resourcable');

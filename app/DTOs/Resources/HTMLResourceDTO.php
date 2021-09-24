@@ -19,7 +19,7 @@ class HTMLResourceDTO extends DataTransferObject implements ResourceDTOInterface
     public static function fromEloquent(HTMLResource $htmlResource): HTMLResourceDTO
     {
         $htmlResourceDto = new HTMLResourceDTO(
-            id: $htmlResource->id,
+            id: $htmlResource->resource->id,
             title: $htmlResource->title,
             description: $htmlResource->description,
             snippet: $htmlResource->snippet,

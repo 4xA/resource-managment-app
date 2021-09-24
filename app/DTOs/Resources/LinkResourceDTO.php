@@ -19,7 +19,7 @@ class LinkResourceDTO extends DataTransferObject implements ResourceDTOInterface
     public static function fromEloquent(LinkResource $linkResource): LinkResourceDTO
     {
         $linkResourceDto = new LinkResourceDTO(
-            id: $linkResource->id,
+            id: $linkResource->resource->id,
             title: $linkResource->title,
             link: $linkResource->link,
             isOpenNewTab: $linkResource->is_open_new_tab,

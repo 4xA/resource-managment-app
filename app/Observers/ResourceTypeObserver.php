@@ -20,6 +20,17 @@ class ResourceTypeObserver
     }
 
     /**
+     * Handle the ResourceType "deleting" event.
+     *
+     * @param  \App\Models\ResourceType  $resourceType
+     * @return void
+     */
+    public function deleting(ResourceType $resourceType)
+    {
+        $resourceType->resource()->delete();
+    }
+
+    /**
      * Handle the ResourceType "force deleting" event.
      *
      * @param  \App\Models\ResourceType  $resourceType
