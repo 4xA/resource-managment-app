@@ -11,6 +11,7 @@ class PDFResourceDTO extends DataTransferObject implements ResourceDTOInterface
 {
     public function __construct(
         public ?int $id = null,
+        public ?int $resource_id = null,
         public ?string $title = null,
         public ?string $fileName = null,
         public ?string $fileBase64 = null,
@@ -23,7 +24,8 @@ class PDFResourceDTO extends DataTransferObject implements ResourceDTOInterface
     public static function fromEloquent(ResourceType $pdfResource): PDFResourceDTO
     {
         $pdfResourceDto = new PDFResourceDTO(
-            id: $pdfResource->resource->id,
+            id: $pdfResource->id,
+            resource_id: $pdfResource->resource->id,
             title: $pdfResource->title,
             url: $pdfResource->getFirstMediaUrl(config('media_collections.pdf')),
             type: ResourceTypeEnum::PDF,

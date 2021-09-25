@@ -75,11 +75,12 @@ class ResourceService
 
         list($resourceStratagy, $resourceDto) = $this->getStratagyAndDto(collect(
             array_merge(
+                $collection->toArray(),
                 [
-                    'id' => $resource->resourcable->id,
+                    'id' => $resource->resourcable_id,
+                    'resource_id' => $resource->id,
                     'type' => array_flip(config('types'))[$resource->resourcable_type],
-                ],
-                $collection->toArray()
+                ]
             )
         ));
 
@@ -121,7 +122,7 @@ class ResourceService
                     id: $collection->get('id'),
                     title: $collection->get('title'),
                     link: $collection->get('link'),
-                    is_open_new_tab: $collection->get('is_open_new_tab')
+                    is_open_new_tab: $collection->get('is_open_new_tab') === "true"
                 );
                 break;
             

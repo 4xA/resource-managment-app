@@ -35,6 +35,7 @@ class PDFResourceStratagy implements ResourceStratagyInterface
 
     public function update(ResourceDTOInterface $pdfResourceDto): PDFResourceDTO
     {
+        logger($pdfResourceDto->toArray());
         $pdfResource = PDFResource::find($pdfResourceDto->id);
 
         if (!isset($pdfResource)) {

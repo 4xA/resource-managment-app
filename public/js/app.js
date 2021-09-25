@@ -12934,19 +12934,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
     },
-    updateResource: function updateResource() {},
+    updateResource: function updateResource() {
+      var _this2 = this;
+
+      var formData = new FormData();
+
+      for (var key in this.form) {
+        formData.append(key, this.form[key]);
+      }
+
+      formData.append('_method', 'PUT');
+      axios.post("http://localhost/api/v1" + '/resource/' + this.form.resource_id, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (response.status === 200) {
+          _this2.hideModal();
+
+          _this2.refreshResources();
+        }
+      });
+    },
     showCreateForm: function showCreateForm() {
       this.form = {};
       this.showModal = true;
     },
     showEditForm: function showEditForm(name) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.showEditModal = true;
       axios.get("http://localhost/api/v1" + '/resource/' + name).then(function (response) {
         if (response.status === 200) {
-          _this2.form = response.data.data;
-          _this2.page = _this2.form.type;
+          _this3.form = response.data.data;
+          _this3.page = _this3.form.type;
         }
       });
     },
@@ -12956,23 +12977,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.showEditModal = false;
     },
     refreshResources: function refreshResources() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("http://localhost/api/v1" + '/resource').then(function (response) {
         if (response.status === 200) {
-          _this3.resources = response.data.data;
+          _this4.resourceList = [];
+          _this4.resources = response.data.data;
 
-          var _iterator = _createForOfIteratorHelper(_this3.resources),
+          var _iterator = _createForOfIteratorHelper(_this4.resources),
               _step;
 
           try {
             for (_iterator.s(); !(_step = _iterator.n()).done;) {
               var resource = _step.value;
 
-              _this3.resourceList.push({
+              _this4.resourceList.push({
                 name: resource.resource_id,
                 text: resource.title,
-                icon: _this3.getIcon(resource.type)
+                icon: _this4.getIcon(resource.type)
               });
             }
           } catch (err) {

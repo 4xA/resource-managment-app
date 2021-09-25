@@ -171,7 +171,26 @@
                     });
             },
             updateResource () {
+                let formData = new FormData();
 
+                for (let key in this.form) {
+                    formData.append(key, this.form[key]);
+                }
+
+                formData.append('_method', 'PUT');
+
+                axios.post(process.env.MIX_API_URL + '/resource/' + this.form.resource_id, formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    .then((response) => {
+                        if (response.status === 200) {
+                            this.hideModal();
+                            this.refreshResources();
+                        }
+                    });
             },
             showCreateForm () {
                 this.form = {};
@@ -196,6 +215,7 @@
                 axios.get(process.env.MIX_API_URL + '/resource')
                     .then((response) => {
                         if (response.status === 200) {
+                            this.resourceList = [];
                             this.resources = response.data.data;
 
                             for (let resource of this.resources) {
