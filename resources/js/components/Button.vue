@@ -4,6 +4,7 @@
         :class="theme"
         @click="$emit('click')"
     >
+        <font-awesome-icon :icon="icon" class="mr-1" />
         {{ text }}
     </button>
 </template>
@@ -13,7 +14,8 @@
         name: "Button",
         props: {
             text: String,
-            type: String
+            type: String,
+            icon: String
         },
         data() {
             return {

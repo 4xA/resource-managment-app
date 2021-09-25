@@ -1,7 +1,14 @@
 <template>
     <main class="mx-20 mt-10">
         <heading title="Admin View" />
-        <modal v-if="showModal">
+
+        <Button
+            text="Create Resource"
+            icon="plus"
+            @click="showModal = true"
+        />
+
+        <modal v-if="showModal" @hideModal="showModal=false">
             <template v-slot:header>
                 <subheading v-if="page === null" title="Select resource type..." />
                 <subheading v-if="page !== null" title="Please fill fields..." />
@@ -32,6 +39,14 @@
                     v-if="page === 'pdf'"
                     @change="updateForm"
                 />
+                <html-form
+                    v-if="page === 'html'"
+                    @change="updateForm"
+                />
+                <link-form
+                    v-if="page === 'link'"
+                    @change="updateForm"
+                />
             </template>
             <template v-slot:footer>
                 <div class="float-right">
@@ -55,8 +70,9 @@
     import Heading from '../../components/Heading';
     import Modal from '../../components/Modal';
     import Button from '../../components/Button';
-    import SimpleList from '../../components/SimpleList.vue';
-    import PdfForm from '../../components/PdfForm.vue';
+    import SimpleList from '../../components/SimpleList';
+    import PdfForm from '../../components/PdfForm';
+    import HtmlForm from '../../components/HtmlForm';
 
     export default {
         components: {
@@ -64,11 +80,12 @@
             Modal,
             Button,
             SimpleList,
-            PdfForm       
+            PdfForm,
+            HtmlForm,
         },
         data() {
             return {
-                showModal: true,
+                showModal: false,
                 form: {
                     type: null,
                 },
@@ -86,7 +103,6 @@
                 this.page = this.form.type;
             },
             updateForm (form) {
-                console.log(form);
                 this.form = {
                     ...this.form,
                     ...form
