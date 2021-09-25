@@ -19,20 +19,20 @@ class LinkResourceStratagyTest extends TestCase
     {
         $title = 'Test Title';
         $link = 'https://example.org';
-        $isOpenNewTab = true;
+        $is_open_new_tab = true;
 
         $linkResourceStratagy = new LinkResourceStratagy();
         $linkResourceDto = $linkResourceStratagy->create(new LinkResourceDTO(
             title: $title,
             link: $link,
-            isOpenNewTab: $isOpenNewTab,
+            is_open_new_tab: $is_open_new_tab,
         ));
 
         $linkResource = LinkResource::find($linkResourceDto->id);
 
         assertEquals($title, $linkResource->title);
         assertEquals($link, $linkResource->link);
-        assertEquals($isOpenNewTab, $linkResource->is_open_new_tab);
+        assertEquals($is_open_new_tab, $linkResource->is_open_new_tab);
     }
 
     public function test_retrieve()

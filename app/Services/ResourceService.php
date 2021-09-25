@@ -121,7 +121,7 @@ class ResourceService
                     id: $collection->get('id'),
                     title: $collection->get('title'),
                     link: $collection->get('link'),
-                    isOpenNewTab: $collection->get('is_open_new_tab')
+                    is_open_new_tab: $collection->get('is_open_new_tab')
                 );
                 break;
             

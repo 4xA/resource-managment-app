@@ -12128,6 +12128,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Button",
   props: {
@@ -12256,18 +12258,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "FileUpload",
   props: {
-    value: File
+    value: File,
+    url: String
   },
   data: function data() {
     return {
-      file: null
+      file: null,
+      label: 'Select a File'
     };
   },
   methods: {
     handleFileUpload: function handleFileUpload() {
       this.file = this.$refs.file.files[0];
-      this.$refs.label.innerHTML = this.file.name;
+      this.label = this.file.name;
       this.input = this.file;
+    }
+  },
+  mounted: function mounted() {
+    if (this.url) {
+      this.label = this.url;
     }
   },
   computed: {
@@ -12349,6 +12358,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "HtmlForm",
+  props: {
+    resource: Object
+  },
   components: {
     Input: _Input__WEBPACK_IMPORTED_MODULE_0__["default"],
     TextArea: _TextArea_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -12356,9 +12368,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: {
-        title: null,
-        description: null,
-        snippet: null
+        title: this.resource ? this.resource.title : '',
+        description: this.resource ? this.resource.description : '',
+        snippet: this.resource ? this.resource.snippet : ''
       }
     };
   },
@@ -12450,6 +12462,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "LinkForm",
+  props: {
+    resource: Object
+  },
   components: {
     Input: _Input__WEBPACK_IMPORTED_MODULE_0__["default"],
     TextArea: _TextArea__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -12458,9 +12473,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: {
-        title: null,
-        link: null,
-        is_open_new_tab: false
+        title: this.resource ? this.resource.title : '',
+        link: this.resource ? this.resource.link : '',
+        is_open_new_tab: this.resource ? this.resource.is_open_new_tab : false
       }
     };
   },
@@ -12542,10 +12557,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Button",
+  props: {
+    resource: Object
+  },
   components: {
     Input: _Input__WEBPACK_IMPORTED_MODULE_1__["default"],
     FileUpload: _FileUpload_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -12553,8 +12572,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: {
-        title: null,
-        file: null
+        title: this.resource ? this.resource.title : '',
+        file: null,
+        url: this.resource ? this.resource.url : ''
       }
     };
   },
@@ -12581,6 +12601,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Button */ "./resources/js/components/Button.vue");
 //
 //
 //
@@ -12597,10 +12618,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "SimpleList",
+  components: {
+    Button: _Button__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   props: {
-    data: Array
+    data: Array,
+    selectable: {
+      type: Boolean,
+      "default": true
+    },
+    editable: {
+      type: Boolean,
+      "default": false
+    }
   },
   data: function data() {
     return {
@@ -12609,8 +12657,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     setSelected: function setSelected(name) {
-      this.$emit('selected', name);
-      this.selected = name;
+      if (this.selectable) {
+        this.$emit('selected', name);
+        this.selected = name;
+      }
     }
   }
 });
@@ -12703,12 +12753,57 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_SimpleList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/SimpleList */ "./resources/js/components/SimpleList.vue");
 /* harmony import */ var _components_PdfForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/PdfForm */ "./resources/js/components/PdfForm.vue");
 /* harmony import */ var _components_HtmlForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/HtmlForm */ "./resources/js/components/HtmlForm.vue");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12795,10 +12890,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       showModal: false,
+      showEditModal: false,
       form: {
         type: null
       },
-      page: null
+      page: null,
+      resources: [],
+      resourceList: []
     };
   },
   methods: {
@@ -12815,7 +12913,93 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     updateForm: function updateForm(form) {
       this.form = _objectSpread(_objectSpread({}, this.form), form);
     },
-    saveForm: function saveForm() {}
+    createResource: function createResource() {
+      var _this = this;
+
+      var formData = new FormData();
+
+      for (var key in this.form) {
+        formData.append(key, this.form[key]);
+      }
+
+      axios.post("http://localhost/api/v1" + '/resource/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (response.status === 201) {
+          _this.hideModal();
+
+          _this.refreshResources();
+        }
+      });
+    },
+    updateResource: function updateResource() {},
+    showCreateForm: function showCreateForm() {
+      this.form = {};
+      this.showModal = true;
+    },
+    showEditForm: function showEditForm(name) {
+      var _this2 = this;
+
+      this.showEditModal = true;
+      axios.get("http://localhost/api/v1" + '/resource/' + name).then(function (response) {
+        if (response.status === 200) {
+          _this2.form = response.data.data;
+          _this2.page = _this2.form.type;
+        }
+      });
+    },
+    hideModal: function hideModal() {
+      this.page = null;
+      this.showModal = false;
+      this.showEditModal = false;
+    },
+    refreshResources: function refreshResources() {
+      var _this3 = this;
+
+      axios.get("http://localhost/api/v1" + '/resource').then(function (response) {
+        if (response.status === 200) {
+          _this3.resources = response.data.data;
+
+          var _iterator = _createForOfIteratorHelper(_this3.resources),
+              _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var resource = _step.value;
+
+              _this3.resourceList.push({
+                name: resource.resource_id,
+                text: resource.title,
+                icon: _this3.getIcon(resource.type)
+              });
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        }
+      });
+    },
+    getIcon: function getIcon(type) {
+      switch (type) {
+        case 'pdf':
+          return 'file-pdf';
+
+        case 'html':
+          return 'file-code';
+
+        case 'link':
+          return 'link';
+      }
+
+      return '';
+    }
+  },
+  created: function created() {
+    this.refreshResources();
   }
 });
 
@@ -12877,7 +13061,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
 
 
-_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__.library.add([_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__.faFilePdf, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__.faFileCode, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__.faLink, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__.faUpload, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__.faPlus]);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__.library.add([_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__.faFilePdf, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__.faFileCode, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__.faLink, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__.faUpload, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__.faPlus, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__.faEdit, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__.faTrash]);
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -14133,11 +14317,15 @@ var render = function() {
       }
     },
     [
-      _c("font-awesome-icon", {
-        staticClass: "mr-1",
-        attrs: { icon: _vm.icon }
-      }),
-      _vm._v("\n    " + _vm._s(_vm.text) + "\n")
+      _vm.icon
+        ? _c("font-awesome-icon", { attrs: { icon: _vm.icon } })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.text
+        ? _c("span", { staticClass: "ml-1" }, [
+            _vm._v("\n        " + _vm._s(_vm.text) + "\n    ")
+          ])
+        : _vm._e()
     ],
     1
   )
@@ -14281,16 +14469,16 @@ var render = function() {
     _c(
       "label",
       {
-        ref: "label",
         staticClass:
           "w-3/4 mx-auto flex flex-col items-center px-4 py-6 bg-white text-green-600 rounded-lg shadow-lg uppercase border border-green-900 cursor-pointer hover:bg-green-600 hover:text-white"
       },
       [
         _c("font-awesome-icon", { attrs: { icon: "upload" } }),
         _vm._v(" "),
-        _c("span", { staticClass: "mt-2 text-base leading-normal" }, [
-          _vm._v("Select a file")
-        ]),
+        _c("span", {
+          staticClass: "mt-2 text-base leading-normal",
+          domProps: { textContent: _vm._s(_vm.label) }
+        }),
         _vm._v(" "),
         _c("input", {
           ref: "file",
@@ -14627,6 +14815,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("file-upload", {
+        attrs: { url: _vm.form.url },
         model: {
           value: _vm.form.file,
           callback: function($$v) {
@@ -14670,7 +14859,7 @@ var render = function() {
         {
           key: item.name,
           staticClass:
-            "cursor-pointer py-1 px-2 my-1 hover:bg-gray-200 transition-colors duration-300",
+            "cursor-pointer py-2 px-2 my-1 hover:bg-gray-200 transition-colors duration-300 flex items-center",
           class: item.name === _vm.selected ? "bg-gray-200" : "",
           attrs: { name: item.name },
           on: {
@@ -14684,7 +14873,35 @@ var render = function() {
             staticClass: "mr-3 text-gray-600",
             attrs: { icon: item.icon }
           }),
-          _vm._v("\n        " + _vm._s(item.text) + "\n    ")
+          _vm._v("\n        " + _vm._s(item.text) + "\n\n        "),
+          _vm.editable
+            ? _c("div", { staticClass: "flex-grow" }, [
+                _c(
+                  "div",
+                  { staticClass: "float-right" },
+                  [
+                    _c("Button", {
+                      attrs: { icon: "edit", type: "primary" },
+                      on: {
+                        click: function($event) {
+                          return _vm.$emit("edit", item.name)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("Button", {
+                      attrs: { icon: "trash", type: "danger" },
+                      on: {
+                        click: function($event) {
+                          return _vm.$emit("delete", item.name)
+                        }
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            : _vm._e()
         ],
         1
       )
@@ -14806,19 +15023,25 @@ var render = function() {
       _c("heading", { attrs: { title: "Admin View" } }),
       _vm._v(" "),
       _c("Button", {
+        staticClass: "mb-4",
         attrs: { text: "Create Resource", icon: "plus" },
         on: {
           click: function($event) {
-            _vm.showModal = true
+            return _vm.showCreateForm()
           }
         }
+      }),
+      _vm._v(" "),
+      _c("simple-list", {
+        attrs: { data: _vm.resourceList, selectable: false, editable: true },
+        on: { edit: _vm.showEditForm }
       }),
       _vm._v(" "),
       _vm.showModal
         ? _c("modal", {
             on: {
               hideModal: function($event) {
-                _vm.showModal = false
+                return _vm.hideModal()
               }
             },
             scopedSlots: _vm._u(
@@ -14910,7 +15133,7 @@ var render = function() {
                                 attrs: { text: "create" },
                                 on: {
                                   click: function($event) {
-                                    return _vm.saveForm()
+                                    return _vm.createResource()
                                   }
                                 }
                               })
@@ -14925,7 +15148,84 @@ var render = function() {
               ],
               null,
               false,
-              2360099259
+              224413858
+            )
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.showEditModal
+        ? _c("modal", {
+            on: {
+              hideModal: function($event) {
+                return _vm.hideModal()
+              }
+            },
+            scopedSlots: _vm._u(
+              [
+                {
+                  key: "header",
+                  fn: function() {
+                    return [
+                      _c("subheading", { attrs: { title: "Edit resource..." } })
+                    ]
+                  },
+                  proxy: true
+                },
+                {
+                  key: "body",
+                  fn: function() {
+                    return [
+                      _vm.page === "pdf"
+                        ? _c("pdf-form", {
+                            attrs: { resource: _vm.form },
+                            on: { change: _vm.updateForm }
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.page === "html"
+                        ? _c("html-form", {
+                            attrs: { resource: _vm.form },
+                            on: { change: _vm.updateForm }
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.page === "link"
+                        ? _c("link-form", {
+                            attrs: { resource: _vm.form },
+                            on: { change: _vm.updateForm }
+                          })
+                        : _vm._e()
+                    ]
+                  },
+                  proxy: true
+                },
+                {
+                  key: "footer",
+                  fn: function() {
+                    return [
+                      _c(
+                        "div",
+                        { staticClass: "float-right" },
+                        [
+                          _c("Button", {
+                            attrs: { text: "save" },
+                            on: {
+                              click: function($event) {
+                                return _vm.updateResource()
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]
+                  },
+                  proxy: true
+                }
+              ],
+              null,
+              false,
+              1550659198
             )
           })
         : _vm._e()

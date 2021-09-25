@@ -19,9 +19,11 @@ class LinkResource extends ResourceType
         'title',
         'link',
         'is_open_new_tab',
+        'type',
     ];
 
     protected $appends = [
-        'resource_id'
+        'resource_id',
+        'type',
     ];
 }

@@ -19,4 +19,9 @@ class ResourceType extends Model
     {
         return $this->resource->id;
     }
+
+    public function getTypeAttribute()
+    {
+        return array_flip(config('types'))[get_called_class()];
+    }
 }

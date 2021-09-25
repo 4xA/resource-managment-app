@@ -26,6 +26,9 @@
 
     export default {
         name: "HtmlForm",
+        props: {
+            resource: Object
+        },
         components: {
             Input,
             TextArea
@@ -33,9 +36,9 @@
         data() {
             return {
                 form: {
-                    title: null,
-                    description: null,
-                    snippet: null
+                    title: this.resource ? this.resource.title : '',
+                    description: this.resource ? this.resource.description : '',
+                    snippet: this.resource ? this.resource.snippet : ''
                 }
             }
         },

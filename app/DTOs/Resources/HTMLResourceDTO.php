@@ -2,6 +2,7 @@
 
 namespace App\DTOs\Resources;
 
+use App\Enums\ResourceTypeEnum;
 use App\Models\ResourceType;
 use Spatie\DataTransferObject\DataTransferObject;
 
@@ -12,6 +13,7 @@ class HTMLResourceDTO extends DataTransferObject implements ResourceDTOInterface
         public ?string $title = null,
         public ?string $description = null,
         public ?string $snippet = null,
+        public ?string $type = null,
     )
     {
     }
@@ -23,6 +25,7 @@ class HTMLResourceDTO extends DataTransferObject implements ResourceDTOInterface
             title: $htmlResource->title,
             description: $htmlResource->description,
             snippet: $htmlResource->snippet,
+            type: ResourceTypeEnum::HTML,
         );
 
         return $htmlResourceDto;

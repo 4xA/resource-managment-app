@@ -2,6 +2,7 @@
 
 namespace App\DTOs\Resources;
 
+use App\Enums\ResourceTypeEnum;
 use App\Models\PDFResource;
 use App\Models\ResourceType;
 use Spatie\DataTransferObject\DataTransferObject;
@@ -13,7 +14,8 @@ class PDFResourceDTO extends DataTransferObject implements ResourceDTOInterface
         public ?string $title = null,
         public ?string $fileName = null,
         public ?string $fileBase64 = null,
-        public ?string $path = null,
+        public ?string $url = null,
+        public ?string $type = null,
     )
     {
     }
@@ -23,7 +25,8 @@ class PDFResourceDTO extends DataTransferObject implements ResourceDTOInterface
         $pdfResourceDto = new PDFResourceDTO(
             id: $pdfResource->resource->id,
             title: $pdfResource->title,
-            path: $pdfResource->getFirstMediaUrl(config('media_collections.pdf'))
+            url: $pdfResource->getFirstMediaUrl(config('media_collections.pdf')),
+            type: ResourceTypeEnum::PDF,
         );
 
         return $pdfResourceDto;

@@ -21,9 +21,11 @@ class HTMLResource extends ResourceType
         'title',
         'description',
         'snippet',
+        'type',
     ];
 
     protected $appends = [
-        'resource_id'
+        'resource_id',
+        'type',
     ];
 }

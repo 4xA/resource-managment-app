@@ -8,6 +8,7 @@
         />
         <file-upload
             v-model="form.file"
+            :url="form.url"
         />
     </div>
 </template>
@@ -18,6 +19,9 @@
 
     export default {
         name: "Button",
+        props: {
+            resource: Object
+        },
         components: {
             Input,
             FileUpload
@@ -25,8 +29,9 @@
         data() {
             return {
                 form: {
-                    title: null,
-                    file: null
+                    title: this.resource ? this.resource.title : '',
+                    file: null,
+                    url: this.resource ? this.resource.url : ''
                 }
             }
         },

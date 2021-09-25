@@ -23,6 +23,9 @@ import Checkbox from "./Checkbox";
 
 export default {
     name: "LinkForm",
+    props: {
+        resource: Object
+    },
     components: {
         Input,
         TextArea,
@@ -31,9 +34,9 @@ export default {
     data() {
         return {
             form: {
-                title: null,
-                link: null,
-                is_open_new_tab: false
+                title: this.resource ? this.resource.title : '',
+                link: this.resource ? this.resource.link : '',
+                is_open_new_tab: this.resource ? this.resource.is_open_new_tab : false
             }
         };
     },

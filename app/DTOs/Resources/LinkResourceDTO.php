@@ -2,6 +2,7 @@
 
 namespace App\DTOs\Resources;
 
+use App\Enums\ResourceTypeEnum;
 use App\Models\ResourceType;
 use Spatie\DataTransferObject\DataTransferObject;
 
@@ -11,7 +12,8 @@ class LinkResourceDTO extends DataTransferObject implements ResourceDTOInterface
         public ?int $id = null,
         public ?string $title = null,
         public ?string $link = null,
-        public ?bool $isOpenNewTab = null,
+        public ?bool $is_open_new_tab = null,
+        public ?string $type = null,
     )
     {
     }
@@ -22,7 +24,8 @@ class LinkResourceDTO extends DataTransferObject implements ResourceDTOInterface
             id: $linkResource->resource->id,
             title: $linkResource->title,
             link: $linkResource->link,
-            isOpenNewTab: $linkResource->is_open_new_tab,
+            is_open_new_tab: $linkResource->is_open_new_tab,
+            type: ResourceTypeEnum::LINK,
         );
 
         return $linkResourceDto;

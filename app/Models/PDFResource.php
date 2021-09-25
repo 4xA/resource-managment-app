@@ -19,12 +19,14 @@ class PDFResource extends ResourceType implements HasMedia
     protected $visible = [
         'resource_id',
         'title',
-        'url'
+        'url',
+        'type'
     ];
 
     protected $appends = [
         'url',
         'resource_id',
+        'type',
     ];
 
     public function getUrlAttribute()

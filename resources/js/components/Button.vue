@@ -4,8 +4,10 @@
         :class="theme"
         @click="$emit('click')"
     >
-        <font-awesome-icon :icon="icon" class="mr-1" />
-        {{ text }}
+        <font-awesome-icon v-if="icon" :icon="icon" />
+        <span v-if="text" class="ml-1">
+            {{ text }}
+        </span>
     </button>
 </template>
 

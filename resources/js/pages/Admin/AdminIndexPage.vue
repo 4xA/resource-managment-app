@@ -5,10 +5,18 @@
         <Button
             text="Create Resource"
             icon="plus"
-            @click="showModal = true"
+            @click="showCreateForm()"
+            class="mb-4"
         />
 
-        <modal v-if="showModal" @hideModal="showModal=false">
+        <simple-list
+            :data="resourceList"
+            :selectable="false"
+            :editable="true"
+            @edit="showEditForm"
+        />
+
+        <modal v-if="showModal" @hideModal="hideModal()">
             <template v-slot:header>
                 <subheading v-if="page === null" title="Select resource type..." />
                 <subheading v-if="page !== null" title="Please fill fields..." />
@@ -58,7 +66,38 @@
                     <Button
                         v-if="page !== null"
                         text="create"
-                        @click="saveForm()"
+                        @click="createResource()"
+                    />
+                </div>
+            </template>
+        </modal>
+
+        <modal v-if="showEditModal" @hideModal="hideModal()">
+            <template v-slot:header>
+                <subheading title="Edit resource..." />
+            </template>
+            <template v-slot:body>
+                <pdf-form
+                    :resource="form"
+                    v-if="page === 'pdf'"
+                    @change="updateForm"
+                />
+                <html-form
+                    :resource="form"
+                    v-if="page === 'html'"
+                    @change="updateForm"
+                />
+                <link-form
+                    :resource="form"
+                    v-if="page === 'link'"
+                    @change="updateForm"
+                />
+            </template>
+            <template v-slot:footer>
+                <div class="float-right">
+                    <Button
+                        text="save"
+                        @click="updateResource()"
                     />
                 </div>
             </template>
@@ -81,15 +120,18 @@
             Button,
             SimpleList,
             PdfForm,
-            HtmlForm,
+            HtmlForm
         },
         data() {
             return {
                 showModal: false,
+                showEditModal: false,
                 form: {
                     type: null,
                 },
-                page: null
+                page: null,
+                resources: [],
+                resourceList: []
             }
         },
         methods: {
@@ -108,9 +150,78 @@
                     ...form
                 };
             },
-            saveForm () {
+            createResource () {
+                let formData = new FormData();
 
+                for (let key in this.form) {
+                    formData.append(key, this.form[key]);
+                }   
+
+                axios.post(process.env.MIX_API_URL + '/resource/', formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    .then((response) => {
+                        if (response.status === 201) {
+                            this.hideModal();
+                            this.refreshResources();
+                        }
+                    });
+            },
+            updateResource () {
+
+            },
+            showCreateForm () {
+                this.form = {};
+                this.showModal = true;
+            },
+            showEditForm (name) {
+                this.showEditModal = true;
+                axios.get(process.env.MIX_API_URL + '/resource/' + name)
+                    .then((response) => {
+                        if (response.status === 200) {
+                            this.form = response.data.data;
+                            this.page = this.form.type;
+                        }
+                    });
+            },
+            hideModal () {
+                this.page = null;
+                this.showModal = false;
+                this.showEditModal = false;
+            },
+            refreshResources () {
+                axios.get(process.env.MIX_API_URL + '/resource')
+                    .then((response) => {
+                        if (response.status === 200) {
+                            this.resources = response.data.data;
+
+                            for (let resource of this.resources) {
+                                this.resourceList.push({
+                                    name: resource.resource_id,
+                                    text: resource.title,
+                                    icon: this.getIcon(resource.type)
+                                });
+                            }
+                        }
+                    });
+            },
+            getIcon (type) {
+                switch (type) {
+                    case 'pdf':
+                        return 'file-pdf';
+                    case 'html':
+                        return 'file-code';
+                    case 'link':
+                        return 'link';
+                }
+                return '';
             }
+        },
+        created () {
+            this.refreshResources(); 
         }
     }
 </script>

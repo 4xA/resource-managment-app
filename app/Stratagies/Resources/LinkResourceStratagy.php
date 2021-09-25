@@ -14,7 +14,7 @@ class LinkResourceStratagy implements ResourceStratagyInterface
         $linkResource = LinkResource::create([
             'title' => $linkResourceDto->title,
             'link' => $linkResourceDto->link,
-            'is_open_new_tab' => $linkResourceDto->isOpenNewTab,
+            'is_open_new_tab' => $linkResourceDto->is_open_new_tab,
         ]);
 
         return LinkResourceDTO::fromEloquent($linkResource);
@@ -42,7 +42,7 @@ class LinkResourceStratagy implements ResourceStratagyInterface
         $linkResource->update([
             'title' => $linkResourceDto->title,
             'link' => $linkResourceDto->link,
-            'is_open_new_tab' => $linkResourceDto->isOpenNewTab,
+            'is_open_new_tab' => $linkResourceDto->is_open_new_tab,
         ]);
 
         return LinkResourceDTO::fromEloquent($linkResource);
