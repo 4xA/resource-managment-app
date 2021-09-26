@@ -4,7 +4,7 @@
 
 You will only need to have **Docker** installed. I built this app using **Docker** version: `20.10.8`.
 
-## Deployment Instruction:
+## Deployment Instructios
 
  1. run `./vendor/bin/sail up`
  2. copy `.env.example` and rename to `.env`
@@ -21,3 +21,4 @@ You will only need to have **Docker** installed. I built this app using **Docker
     ```
  9. open browser on [http://localhost/admin](http://localhost/admin) for admin page to create resources
  10. open browser on [http://localhost/](http://localhost/) for visitor page to view resources
+ 11. you can view database using PHPMyAdmin on [http://localhost:8080](http://localhost:8080)
