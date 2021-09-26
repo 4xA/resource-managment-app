@@ -5,6 +5,7 @@
             class="ml-4 w-full outline-none border ring-gray-500 focus:border-gray-800 py-2 px-4 rounded-3xl text-sm resize-none"
             :placeholder="placeholder"
             v-model="input"
+            v-bind:readonly="readonly"
         />
     </div>
 </template>
@@ -15,7 +16,11 @@
         props: {
             label: String,
             placeholder: String,
-            value: String
+            value: String,
+            readonly: {
+                type: Boolean,
+                default: false
+            }
         },
         computed: {
             input: {

@@ -18,3 +18,6 @@ Route::group([
 ], function () {
     Route::get('/', 'AdminController');
 });
+
+Route::resource('resource', 'ResourceController')->only(['index', 'show']);
+Route::get('/', 'ResourceController@index');

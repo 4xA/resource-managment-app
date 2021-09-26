@@ -222,6 +222,7 @@
                 this.showEditModal = false;
             },
             refreshResources () {
+                // TODO: extract all resource access logic to class
                 axios.get(process.env.MIX_API_URL + '/resource')
                     .then((response) => {
                         if (response.status === 200) {
