@@ -12872,6 +12872,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -12956,45 +12957,55 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
     },
+    deleteResource: function deleteResource(name) {
+      var _this3 = this;
+
+      axios["delete"]("http://localhost/api/v1" + '/resource/' + name).then(function (response) {
+        if (response.status === 204) {
+          _this3.refreshResources();
+        }
+      });
+    },
     showCreateForm: function showCreateForm() {
       this.form = {};
       this.showModal = true;
     },
     showEditForm: function showEditForm(name) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.showEditModal = true;
       axios.get("http://localhost/api/v1" + '/resource/' + name).then(function (response) {
         if (response.status === 200) {
-          _this3.form = response.data.data;
-          _this3.page = _this3.form.type;
+          _this4.form = response.data.data;
+          _this4.page = _this4.form.type;
         }
       });
     },
     hideModal: function hideModal() {
       this.page = null;
+      this.form.type = null;
       this.showModal = false;
       this.showEditModal = false;
     },
     refreshResources: function refreshResources() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get("http://localhost/api/v1" + '/resource').then(function (response) {
         if (response.status === 200) {
-          _this4.resourceList = [];
-          _this4.resources = response.data.data;
+          _this5.resourceList = [];
+          _this5.resources = response.data.data;
 
-          var _iterator = _createForOfIteratorHelper(_this4.resources),
+          var _iterator = _createForOfIteratorHelper(_this5.resources),
               _step;
 
           try {
             for (_iterator.s(); !(_step = _iterator.n()).done;) {
               var resource = _step.value;
 
-              _this4.resourceList.push({
+              _this5.resourceList.push({
                 name: resource.resource_id,
                 text: resource.title,
-                icon: _this4.getIcon(resource.type)
+                icon: _this5.getIcon(resource.type)
               });
             }
           } catch (err) {
@@ -15056,7 +15067,7 @@ var render = function() {
       _vm._v(" "),
       _c("simple-list", {
         attrs: { data: _vm.resourceList, selectable: false, editable: true },
-        on: { edit: _vm.showEditForm }
+        on: { edit: _vm.showEditForm, delete: _vm.deleteResource }
       }),
       _vm._v(" "),
       _vm.showModal

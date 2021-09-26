@@ -14,6 +14,7 @@
             :selectable="false"
             :editable="true"
             @edit="showEditForm"
+            @delete="deleteResource"
         />
 
         <modal v-if="showModal" @hideModal="hideModal()">
@@ -192,6 +193,14 @@
                         }
                     });
             },
+            deleteResource (name) {
+                 axios.delete(process.env.MIX_API_URL + '/resource/' + name)
+                    .then((response) => {
+                        if (response.status === 204) {
+                            this.refreshResources();
+                        }
+                    });               
+            },
             showCreateForm () {
                 this.form = {};
                 this.showModal = true;
@@ -208,6 +217,7 @@
             },
             hideModal () {
                 this.page = null;
+                this.form.type = null;
                 this.showModal = false;
                 this.showEditModal = false;
             },
