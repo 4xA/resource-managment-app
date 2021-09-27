@@ -1,5 +1,38 @@
 # Resource Management App
 
+## Architecture
+
+The following key challanges needed to be addressed:
+ 1. We need the resource types to be extensible for the future to add new types of resources (e.g. text files, videos... etc)
+ 2. Storing resources needs to be a safe operations without losing data (ACID)
+ 3. Retrieving / Sorting data needs to be optimial performance
+
+For this type of system with unexpected and unrelated information, we would optimially use a nosql database. However, using the stack we have at hand, we will solve this for a relational database.
+
+Models for data could be as simple as creating a Resource model with two attributes:
+   ```
+   Resource
+   ----------
+   + id: int
+   + string: type
+   + json: string
+   ```
+
+The json attribute will contain all the data related to this resource type. This will replicate a nosql database but the issue here is that our json attribute is not indexable by the DB making access accessing and aggregating data slower. The other issue is that json read + write will require extra logic implementation to insure consistant data.
+
+In order to address these issues, I created subtype models for each type of resource and used the Stratagy pattern to handle creating, retrieving, updating and deleting this model.
+
+For convienience I used the Service Layer architectual pattern to loose couple the controller JSON logic from the business logic. These layers interact with each user using data transfer objects (DTOs).
+
+
+## UML Diagram
+
+![UML](.readme/uml.svg)
+
+## Service Layers Diagram
+
+![UML](.readme/services.svg)
+
 ## Local Environemnt Requirments
 
 You will only need to have **Docker** installed. I built this app using **Docker** version: `20.10.8`.
