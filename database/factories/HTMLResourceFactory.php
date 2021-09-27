@@ -22,7 +22,7 @@ class HTMLResourceFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->realText(50),
+            'title' => $this->faker->realText(12),
             'description' => $this->faker->paragraph(),
             'snippet' => $this->faker->randomHtml(),
         ];

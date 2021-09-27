@@ -22,7 +22,7 @@ class PDFResourceFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->realText(50),
+            'title' => $this->faker->realText(12),
         ];
     }
 }

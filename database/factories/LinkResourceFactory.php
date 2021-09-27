@@ -22,7 +22,7 @@ class LinkResourceFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->realText(50),
+            'title' => $this->faker->realText(12),
             'link' => $this->faker->url(),
             'is_open_new_tab' => $this->faker->boolean(),
         ];
