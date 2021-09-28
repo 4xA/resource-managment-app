@@ -39,24 +39,28 @@ For convienience I used the Service Layer architectual pattern to loose couple t
 
 ## Local Environemnt Requirments
 
-You will only need to have **Docker** installed. I built this app using **Docker** version: `20.10.8`.
+You will need to have **Docker**, **PHP** and **Comoser** installed. This has been tested using:
+**Docker** version: `20.10.8`
+**PHP** version: `8.0.5`
+**Composer** version: `2.0.11`
 
 ## Deployment Instructios
 
- 1. run `./vendor/bin/sail up`
- 2. copy `.env.example` and rename to `.env`
- 3. run `./vendor/bin/sail composer install`
- 4. run `./vendor/bin/sail artisan migrate`
- 5. (optional) run `./vendor/bin/sail artisan db:seed` if you want to seed the app with random data
- 6. run `./vendor/bin/sail artisan storage:link`
- 7. (optional / have issues with frontend) run `./vendor/bin/sail npm run prod`
- 8. make sure `.env` has the following variables set to the correct url:
+ 1. run `composer install`
+ 2. run `./vendor/bin/sail up`
+ 3. copy `.env.example` and rename to `.env`
+ 4. run `./vendor/bin/sail artisan key:generate`
+ 5. run `./vendor/bin/sail artisan migrate`
+ 6. (optional) run `./vendor/bin/sail artisan db:seed` if you want to seed the app with random data
+ 7. run `./vendor/bin/sail artisan storage:link`
+ 8. (optional / have issues with frontend) run `./vendor/bin/sail npm install; ./vendor/bin/sail npm run prod`
+ 9. make sure `.env` has the following variables set to the correct url:
     ```
     APP_URL=http://localhost
     MIX_APP_URL=http://localhost
     MIX_API_URL=http://localhost/api/v1
     ```
- 9. open browser on [http://localhost/admin](http://localhost/admin) for admin page to create resources
- 10. open browser on [http://localhost/](http://localhost/) for visitor page to view resources
- 11. you can view database using PHPMyAdmin on [http://localhost:8080](http://localhost:8080)
- 12. run `./vendor/bin/sail test` to run PHPUnit tests
+ 10. open browser on [http://localhost/admin](http://localhost/admin) for admin page to create resources
+ 11. open browser on [http://localhost/](http://localhost/) for visitor page to view resources
+ 12. you can view database using PHPMyAdmin on [http://localhost:8080](http://localhost:8080)
+ 13. run `./vendor/bin/sail test` to run PHPUnit tests
